@@ -1,6 +1,6 @@
-# Cyberpunk MMORPG - Game Configuration Guide
+# LovelaceVerse MMORPG - Game Configuration Guide
 
-This document provides instructions for customizing and configuring various aspects of the Cyberpunk MMORPG game.
+This document provides instructions for customizing and configuring various aspects of the LovelaceVerse MMORPG game.
 
 ## Table of Contents
 1. [Game Overview](#game-overview)
@@ -12,7 +12,7 @@ This document provides instructions for customizing and configuring various aspe
 
 ## Game Overview
 
-The Cyberpunk MMORPG is a pixel art idle RPG game where players collect characters through a gacha system, battle monsters in various dungeons, collect resources, and upgrade their characters. The game features multiple dungeons with different difficulties, monster types, and reward structures.
+The LovelaceVerse MMORPG is a pixel art idle RPG game where players collect characters through a gacha system, battle monsters in various dungeons, collect resources, and upgrade their characters. The game features multiple dungeons with different difficulties, monster types, and reward structures.
 
 ## Currency Configuration
 
