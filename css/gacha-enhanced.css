@@ -1,0 +1,305 @@
+/* Enhanced Cyberpunk Gacha Character Display */
+
+/* Improved character result container with better shadows and glowing effects */
+.cyberpunk-character-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(0, 40, 60, 0.95));
+    border-radius: 8px;
+    border: 2px solid var(--rarity-color, #00f7ff);
+    box-shadow: 0 0 30px rgba(var(--rarity-rgb, 0, 247, 255), 0.6), 
+                inset 0 0 20px rgba(var(--rarity-rgb, 0, 80, 100), 0.4);
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Dynamic animated scanline effect */
+.cyberpunk-character-result::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(var(--rarity-rgb, 0, 247, 255), 0.1) 50%,
+        transparent 100%
+    );
+    animation: scanline 4s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(50%); }
+}
+
+/* Grid pattern background for character result */
+.cyberpunk-character-result::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(var(--rarity-rgb, 0, 247, 255), 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--rarity-rgb, 0, 247, 255), 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Enhanced character image container */
+.character-image-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 3px solid var(--rarity-color, #00f7ff);
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px rgba(var(--rarity-rgb, 0, 247, 255), 0.7);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.character-image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(var(--rarity-rgb, 0, 247, 255), 0.9);
+}
+
+/* Enhanced character info styling */
+.character-info {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 10, 20, 0.6);
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid rgba(var(--rarity-rgb, 0, 247, 255), 0.5);
+    box-shadow: 0 0 15px rgba(var(--rarity-rgb, 0, 247, 255), 0.3);
+}
+
+.character-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 28px;
+    text-align: center;
+    margin: 0 0 10px;
+    color: #ffffff;
+    text-shadow: 0 0 10px var(--rarity-color, #00f7ff);
+    letter-spacing: 2px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Name underline effect */
+.character-name::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rarity-color, #00f7ff), transparent);
+}
+
+.character-rarity {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px 15px;
+    margin: 0 auto 15px;
+    background-color: rgba(0, 15, 30, 0.8);
+    border: 1px solid var(--rarity-color, #00f7ff);
+    border-radius: 3px;
+    display: inline-block;
+    color: var(--rarity-color, #00f7ff);
+    max-width: fit-content;
+    box-shadow: 0 0 10px rgba(var(--rarity-rgb, 0, 247, 255), 0.4);
+}
+
+.character-description {
+    text-align: center;
+    font-size: 16px;
+    color: #d0eaff;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    padding: 0 15px;
+}
+
+/* Enhanced character stats styling */
+.character-stats-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(0, 15, 30, 0.7);
+    border-radius: 5px;
+    border: 1px solid rgba(var(--rarity-rgb, 0, 247, 255), 0.5);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.character-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .character-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: rgba(0, 25, 40, 0.8);
+    border-radius: 4px;
+    border: 1px solid rgba(var(--rarity-rgb, 0, 247, 255), 0.2);
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    background-color: rgba(var(--rarity-rgb, 0, 247, 255), 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: #00f7ff;
+    text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+}
+
+.stat-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Enhanced ability section */
+.character-ability {
+    padding: 15px;
+    background-color: rgba(0, 15, 30, 0.7);
+    border-radius: 5px;
+    border: 1px solid var(--rarity-color, #00f7ff);
+    box-shadow: 0 0 15px rgba(var(--rarity-rgb, 0, 247, 255), 0.2);
+}
+
+.ability-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 18px;
+    color: var(--rarity-color, #00f7ff);
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px var(--rarity-color, #00f7ff);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.ability-description {
+    color: #d0eaff;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Enhanced confirm button */
+#gacha-close-result {
+    display: block;
+    width: 200px;
+    height: 45px;
+    margin: 25px auto 0 auto;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #004050, #008f9f);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 108, 135, 0.7), 0 5px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 8px rgba(0, 247, 255, 0.8);
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    border: 1px solid rgba(0, 247, 255, 0.3);
+}
+
+#gacha-close-result::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0)
+    );
+    transform: rotate(45deg);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 10;
+}
+
+#gacha-close-result:hover {
+    background: linear-gradient(45deg, #005a70, #00a7b9);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 108, 135, 0.9), 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+#gacha-close-result:hover::before {
+    animation: shine 1.5s infinite;
+}
+
+#gacha-close-result:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(0, 108, 135, 0.7), 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Duplicate message styles */
+.duplicate-message {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 22px;
+    color: #ff0066;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px rgba(255, 0, 102, 0.8);
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+.shard-conversion {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 18px;
+    color: #f7ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px rgba(247, 255, 0, 0.8);
+    letter-spacing: 1px;
+}
+
+@keyframes pulse {
+    0% { text-shadow: 0 0 8px rgba(255, 0, 102, 0.8); }
+    50% { text-shadow: 0 0 15px rgba(255, 0, 102, 1); }
+    100% { text-shadow: 0 0 8px rgba(255, 0, 102, 0.8); }
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Chat Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/support-chat.css">
+    <style>
+        body {
+            background-color: #0a0f19;
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            margin-bottom: 40px;
+        }
+        
+        p {
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .instructions {
+            background-color: rgba(0, 255, 255, 0.1);
+            border: 1px solid #00ffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .instructions h2 {
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 0;
+        }
+        
+        .instructions ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SHELLEY AI CHAT SUPPORT TEST</h1>
+        <p>This page is a standalone test environment for the Support Chat feature. You should see a glowing bubble in the bottom-right corner of your screen. Click it to open the chat interface.</p>
+        
+        <div class="instructions">
+            <h2>Testing Instructions</h2>
+            <ul>
+                <li>Click the bubble to open the chat interface</li>
+                <li>Type a message and press Enter or click Send</li>
+                <li>Test the AI's responses to different questions about the game</li>
+                <li>Click the X or outside the chat window to close it</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Include Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Include the chat support scripts -->
+    <script>
+        // Manually inject the chat container HTML
+        document.body.insertAdjacentHTML('beforeend', `
+            <div id="support-chat-container">
+                <div id="support-chat-bubble" class="neon-border">
+                    <canvas id="shelly-canvas"></canvas>
+                </div>
+                <div id="support-chat-interface">
+                    <div id="support-chat-header">
+                        <div id="support-chat-title">SHELLEY AI SUPPORT</div>
+                        <button id="support-chat-close">×</button>
+                    </div>
+                    <div id="support-chat-avatar-container">
+                        <canvas id="support-chat-avatar-canvas"></canvas>
+                    </div>
+                    <div id="support-chat-messages"></div>
+                    <div id="support-chat-input-container">
+                        <textarea id="support-chat-input" placeholder="Ask about the game..." rows="1" maxlength="200"></textarea>
+                        <button id="support-chat-send">Send</button>
+                    </div>
+                </div>
+            </div>
+        `);
+    </script>
+    
+    <!-- Include chat support modules -->
+    <script src="js/three-avatar.js"></script>
+    <script src="js/knowledge-base.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/message-handler.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script>
+        // Initialize the chat support manually
+        window.addEventListener('load', () => {
+            console.log("Initializing test page for Shelley AI Support Chat...");
+            
+            // Initialize each component
+            window.threeAvatar = new ThreeAvatar();
+            window.knowledgeBase = new KnowledgeBase();
+            window.aiService = new AiService();
+            window.messageHandler = new MessageHandler(window.aiService, window.knowledgeBase);
+            window.uiController = new UiController();
+            
+            // Initialize UI controller with callbacks
+            window.uiController.initialize({
+                callbacks: {
+                    onSendMessage: (message) => window.messageHandler.processMessage(message),
+                    onChatOpened: () => window.threeAvatar.setState('talking'),
+                    onChatClosed: () => window.threeAvatar.setState('idle'),
+                    onChatToggle: (isOpen) => window.threeAvatar.setState(isOpen ? 'talking' : 'idle')
+                }
+            });
+            
+            // Get canvas elements from UI
+            const canvasElements = window.uiController.getCanvasElements();
+            
+            // Initialize Three.js avatar
+            window.threeAvatar.initialize(
+                canvasElements.bubbleCanvas,
+                canvasElements.avatarCanvas
+            );
+            
+            // Initialize knowledge base
+            window.knowledgeBase.initialize();
+            
+            // Initialize AI service
+            window.aiService.initialize();
+            
+            // Initialize message handler and set callbacks
+            window.messageHandler.initialize();
+            window.messageHandler.setCallbacks({
+                onTypingStart: () => window.uiController.showTypingIndicator(),
+                onTypingUpdate: (text) => {
+                    window.uiController.updateTypingMessage(text);
+                    window.threeAvatar.setState('talking');
+                },
+                onResponseComplete: (response) => {
+                    window.uiController.finalizeTypingMessage();
+                    window.threeAvatar.setState('idle');
+                }
+            });
+            
+            // Display initial messages
+            const initialMessages = window.messageHandler.formatMessagesForDisplay();
+            window.uiController.displayMessages(initialMessages);
+            
+            console.log("Shelley AI Support Chat test initialized successfully");
+        });
+    </script>
+</body>
+</html>

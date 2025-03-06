@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LovelaceVerse</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/character.css">
+    <link rel="stylesheet" href="css/character-enhanced.css">
+    <link rel="stylesheet" href="css/character-panel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/preloader.css">
+    <link rel="stylesheet" href="css/gacha.css">
+    <link rel="stylesheet" href="css/gacha-fixed.css">
+    <link rel="stylesheet" href="css/character-result.css">
+    <link rel="stylesheet" href="css/gacha-enhanced.css">
+    <link rel="stylesheet" href="css/marketplace.css">
+    <link rel="stylesheet" href="css/dungeon-modal.css">
+    <link rel="stylesheet" href="css/cyberpunk-dungeon-modal.css">
+    <link rel="stylesheet" href="css/cyberpunk-buttons-css.css">
+    <link rel="stylesheet" href="css/projectile-effects.css">
+    <link rel="stylesheet" href="css/audio-controls.css">
+    <link rel="stylesheet" href="css/damage-fade.css">
+    <link rel="stylesheet" href="css/auth-ui.css">
+    <link rel="stylesheet" href="css/profile-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-ui">
+            <div id="currency-display">
+                <div class="currency copper">
+                    <span class="currency-icon">₵</span>
+                    <span id="copper-amount">0</span>
+                </div>
+                <div class="currency silver">
+                    <span class="currency-icon">Ⓢ</span>
+                    <span id="silver-amount">0</span>
+                </div>
+                <div class="currency gold">
+                    <span class="currency-icon">Ⓖ</span>
+                    <span id="gold-amount">0</span>
+                </div>
+                <div class="currency diamond">
+                    <span class="currency-icon">◈</span>
+                    <span id="diamond-amount">0</span>
+                </div>
+            </div>
+            
+            <div id="buff-container">
+                <button id="damage-buff" class="buff-button">2x DMG</button>
+                <button id="speed-buff" class="buff-button">2x SPD</button>
+                <span id="buff-counter">Buffs: 0/4</span>
+            </div>
+            
+            
+            <div id="menu-buttons">
+                <button id="inventory-button" class="menu-button">Inventory</button>
+                <button id="character-list-button" class="menu-button">Characters</button>
+                <button id="gacha-button" class="menu-button">Gacha</button>
+                <button id="dungeon-button" class="menu-button">Dungeons</button>
+                <button id="marketplace-button" class="menu-button">Marketplace</button>
+                <!-- Profile button is added dynamically by ProfileDashboard.js -->
+                <!-- Connect Wallet button will be added/removed dynamically based on auth state -->
+            </div>
+        </div>
+        
+<div id="game-world">
+    <div id="character-panel">
+        <!-- Character thumbnails will be displayed here -->
+    </div>
+    <div id="map-container">
+        <div id="map-background"></div>
+        <div id="characters-container"></div>
+        <div id="monsters-container"></div>
+        <div id="items-container"></div>
+    </div>
+    <div id="distance-tracker">
+        Distance: <span id="current-distance">0</span>/10,000
+    </div>
+</div>
+    </div>
+    
+    <!-- Modals -->
+    <div id="inventory-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Inventory</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="inventory-tabs">
+                    <button class="inventory-tab active" data-tab="all">All Items</button>
+                    <button class="inventory-tab" data-tab="usables">Usables</button>
+                    <button class="inventory-tab" data-tab="weapons">Weapons</button>
+                    <button class="inventory-tab" data-tab="armor">Armor</button>
+                    <button class="inventory-tab" data-tab="accessory">Accessories</button>
+                    <button class="inventory-tab" data-tab="utility">Utility</button>
+                </div>
+                <div id="inventory-tab-all" class="inventory-tab-content active">
+                    <div id="inventory-grid"></div>
+                </div>
+                <div id="inventory-tab-usables" class="inventory-tab-content">
+                    <div id="inventory-usables-grid" class="inventory-grid"></div>
+                </div>
+                <div id="inventory-tab-weapons" class="inventory-tab-content">
+                    <div id="inventory-weapons-grid" class="inventory-grid"></div>
+                </div>
+                <div id="inventory-tab-armor" class="inventory-tab-content">
+                    <div id="inventory-armor-grid" class="inventory-grid"></div>
+                </div>
+                <div id="inventory-tab-accessory" class="inventory-tab-content">
+                    <div id="inventory-accessory-grid" class="inventory-grid"></div>
+                </div>
+                <div id="inventory-tab-utility" class="inventory-tab-content">
+                    <div id="inventory-utility-grid" class="inventory-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="character-list-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Characters</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="character-list"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="marketplace-modal" class="modal">
+        <div class="modal-content cyberpunk-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">MARKETPLACE</h2>
+                <div class="modal-header-controls">
+                    <span class="close-modal">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="marketplace-three-container" style="height: 300px; width: 100%; margin-bottom: 20px;"></div>
+                <div class="marketplace-items">
+                    <h3 class="marketplace-section-title">AVAILABLE ITEMS</h3>
+                    <div id="marketplace-items-container" class="items-grid">
+                        <!-- Marketplace items will be loaded here -->
+                        <div class="marketplace-empty-message">Loading marketplace items...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="gacha-modal" class="modal">
+        <div class="modal-content cyberpunk-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">NEO-DNA SYNTHESIS</h2>
+                <div class="modal-header-controls">
+                    <span class="close-modal">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="gacha-options">
+                    <div class="gacha-option cyberpunk-panel" data-type="mortal">
+                        <div class="gacha-image-container">
+                            <img class="gacha-image" src="img/gacha/mortal.png" alt="Mortal DNA">
+                        </div>
+                        <div class="gacha-info">
+                            <h3 class="gacha-name">MORTAL DNA</h3>
+                            <p class="gacha-description">Basic human units with standard capabilities</p>
+                            <div class="gacha-rates">
+                                <div class="rate-item"><span class="rarity-common">Common</span><span>70.0%</span></div>
+                                <div class="rate-item"><span class="rarity-uncommon">Uncommon</span><span>25.0%</span></div>
+                                <div class="rate-item"><span class="rarity-rare">Rare</span><span>4.0%</span></div>
+                                <div class="rate-item"><span class="rarity-legendary">Legendary</span><span>1.0%</span></div>
+                            </div>
+                            <div class="gacha-cost">
+                                <span class="gacha-cost-icon">₵</span>
+                                <span class="gacha-cost-value">50</span>
+                            </div>
+                            <button class="gacha-pull-button" data-type="mortal">EXTRACT</button>
+                            <div class="pull-counter">PULLS: 0/20</div>
+                        </div>
+                    </div>
+                    <div class="gacha-option cyberpunk-panel" data-type="synthetic">
+                        <div class="gacha-image-container">
+                            <img class="gacha-image" src="img/gacha/synthetic.png" alt="Synthetic DNA">
+                        </div>
+                        <div class="gacha-info">
+                            <h3 class="gacha-name">SYNTHETIC DNA</h3>
+                            <p class="gacha-description">Enhanced hybrid units with superior capabilities</p>
+                            <div class="gacha-rates">
+                                <div class="rate-item"><span class="rarity-common">Common</span><span>40.0%</span></div>
+                                <div class="rate-item"><span class="rarity-uncommon">Uncommon</span><span>40.0%</span></div>
+                                <div class="rate-item"><span class="rarity-rare">Rare</span><span>15.0%</span></div>
+                                <div class="rate-item"><span class="rarity-epic">Epic</span><span>4.0%</span></div>
+                                <div class="rate-item"><span class="rarity-legendary">Legendary</span><span>1.0%</span></div>
+                            </div>
+                            <div class="gacha-cost">
+                                <span class="gacha-cost-icon">Ⓢ</span>
+                                <span class="gacha-cost-value">50</span>
+                            </div>
+                            <button class="gacha-pull-button" data-type="synthetic">EXTRACT</button>
+                            <div class="pull-counter">PULLS: 0/20</div>
+                        </div>
+                    </div>
+                    <div class="gacha-option cyberpunk-panel" data-type="divine">
+                        <div class="gacha-image-container">
+                            <img class="gacha-image" src="img/gacha/divine.png" alt="Divine DNA">
+                        </div>
+                        <div class="gacha-info">
+                            <h3 class="gacha-name">DIVINE DNA</h3>
+                            <p class="gacha-description">Transcendent entities with otherworldly capabilities</p>
+                            <div class="gacha-rates">
+                                <div class="rate-item"><span class="rarity-common">Common</span><span>10.0%</span></div>
+                                <div class="rate-item"><span class="rarity-uncommon">Uncommon</span><span>30.0%</span></div>
+                                <div class="rate-item"><span class="rarity-rare">Rare</span><span>40.0%</span></div>
+                                <div class="rate-item"><span class="rarity-epic">Epic</span><span>15.0%</span></div>
+                                <div class="rate-item"><span class="rarity-legendary">Legendary</span><span>5.0%</span></div>
+                            </div>
+                            <div class="gacha-cost">
+                                <span class="gacha-cost-icon">Ⓖ</span>
+                                <span class="gacha-cost-value">10</span>
+                            </div>
+                            <button class="gacha-pull-button" data-type="divine">EXTRACT</button>
+                            <div class="pull-counter">PULLS: 0/20</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty div for spacing -->
+                    <div style="height: 10px;"></div>
+                </div>
+                
+                <div id="gacha-result" style="display: none;">
+                    <div id="gacha-character-result" class="cyberpunk-character-result">
+                        <!-- Character result will be inserted here -->
+                    </div>
+                    <button id="gacha-close-result" class="cyberpunk-button">RETURN</button>
+                </div>
+                
+                <!-- 3D animation container -->
+                <div id="pull-animation-container" class="pull-animation-container">
+                    <div id="pull-animation-scene" class="pull-animation-scene"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/preloader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/webgl-context-manager.js"></script>
+    <script src="js/cyberpunk-buttons.js"></script>
+    <script src="js/button-fix.js"></script>
+    <script src="js/gacha-fix.js"></script>
+    <script src="js/modal-enhancer.js"></script>
+    <script src="js/equipment-modal-enhancer.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/currency.js"></script>
+    <script src="js/items.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/abilities.js"></script>
+    <script src="js/projectile-effects.js"></script>
+    <script src="js/character.js"></script>
+    <script src="js/monster.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/buff.js"></script>
+    <script src="js/gacha-three.js"></script>
+    <script src="js/marketplace-three.js"></script>
+    <script src="js/dungeon-three.js"></script>
+    <script src="js/gacha.js"></script>
+    <script src="js/shards.js"></script>
+    <script src="js/dungeons.js"></script>
+    <script src="js/placeholders.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/authentication.js"></script>
+    <script src="js/auth-setup.js"></script>
+    <script src="js/auth-debug.js"></script>
+    <script src="js/profile-dashboard.js"></script>
+    <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      // Set up Supabase tables
+      if (typeof AuthSetup !== 'undefined') {
+        console.log('Initializing database tables for authentication...');
+        AuthSetup.init().then(() => {
+          console.log('Database tables initialized successfully!');
+        }).catch(err => {
+          console.error('Error initializing database tables:', err);
+        });
+      }
+      
+      var utilityTabButton = document.querySelector('.inventory-tab[data-tab="utility"]');
+      if (utilityTabButton) {
+        utilityTabButton.addEventListener('click', function(){
+          var utilityTab = document.getElementById('inventory-tab-utility');
+          if (utilityTab) {
+            // Remove any existing shards message to prevent duplicates
+            var existing = utilityTab.querySelector('.shards-message');
+            if(existing){
+              existing.remove();
+            }
+            // Add the shards message only if it doesn't already exist
+            if (!utilityTab.querySelector('.shards-message')) {
+              var shardsDiv = document.createElement('div');
+              shardsDiv.className = 'shards-message';
+              shardsDiv.innerHTML = "Character Shards<br>No character shards available. Obtain shards from duplicate character pulls.";
+              utilityTab.appendChild(shardsDiv);
+            }
+          }
+        });
+      }
+    });
+  </script>
+  
+  <!-- Support Chat (Added as an overlay) -->
+  <script src="support-chat/js/three-avatar.js"></script>
+  <script src="support-chat/js/knowledge-base.js"></script>
+  <script src="support-chat/js/ai-service.js"></script>
+  <script src="support-chat/js/message-handler.js"></script>
+  <script src="support-chat/js/ui-controller.js"></script>
+  <script src="support-chat/js/support-chat.js"></script>
+</body>
+</html>

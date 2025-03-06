@@ -1,0 +1,128 @@
+/**
+ * Audio controls styling for Cyberpunk MMORPG game
+ */
+
+.audio-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.audio-controls:hover {
+    opacity: 1;
+}
+
+.audio-controls-panel {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.audio-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ffff;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.audio-button:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+.audio-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.audio-icon.unmuted::before {
+    content: "🔊";
+    font-size: 20px;
+}
+
+.audio-icon.muted::before {
+    content: "🔇";
+    font-size: 20px;
+}
+
+.volume-slider-container {
+    margin-left: 10px;
+    width: 100px;
+}
+
+/* Styling for volume slider */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #00ffff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #00ffff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+/* For mobile devices */
+@media screen and (max-width: 768px) {
+    .audio-controls {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .volume-slider-container {
+        width: 80px;
+    }
+    
+    .audio-button {
+        width: 36px;
+        height: 36px;
+    }
+}

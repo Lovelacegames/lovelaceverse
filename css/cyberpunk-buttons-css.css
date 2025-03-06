@@ -1,0 +1,331 @@
+/* Modern Cyberpunk Buttons - Pure CSS Implementation */
+
+/* Base button styles */
+.cyberpunk-button, 
+.menu-button, 
+.gacha-pull-button, 
+.buff-button, 
+.inventory-tab, 
+.enter-dungeon-button {
+    position: relative;
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(0, 247, 255, 0.8);
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.9), rgba(0, 40, 80, 0.9));
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.4), 
+                inset 0 0 5px rgba(0, 247, 255, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Before element for shine effect */
+.cyberpunk-button::before,
+.menu-button::before,
+.gacha-pull-button::before,
+.buff-button::before,
+.inventory-tab::before,
+.enter-dungeon-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    transition: all 0.6s ease;
+    z-index: -1;
+}
+
+/* After element for border effect */
+.cyberpunk-button::after,
+.menu-button::after,
+.gacha-pull-button::after,
+.buff-button::after,
+.inventory-tab::after,
+.enter-dungeon-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 247, 255, 0.5) 0%,
+        transparent 5%,
+        transparent 95%,
+        rgba(0, 247, 255, 0.5) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Hover effects */
+.cyberpunk-button:hover,
+.menu-button:hover,
+.gacha-pull-button:hover,
+.buff-button:hover,
+.inventory-tab:hover,
+.enter-dungeon-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.6),
+                inset 0 0 10px rgba(0, 247, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 30, 60, 0.9), rgba(0, 50, 100, 0.9));
+    text-shadow: 0 0 8px rgba(0, 247, 255, 1);
+}
+
+.cyberpunk-button:hover::before,
+.menu-button:hover::before,
+.gacha-pull-button:hover::before,
+.buff-button:hover::before,
+.inventory-tab:hover::before,
+.enter-dungeon-button:hover::before {
+    left: 100%;
+}
+
+.cyberpunk-button:hover::after,
+.menu-button:hover::after,
+.gacha-pull-button:hover::after,
+.buff-button:hover::after,
+.inventory-tab:hover::after,
+.enter-dungeon-button:hover::after {
+    opacity: 1;
+}
+
+/* Active/pressed state */
+.cyberpunk-button:active,
+.menu-button:active,
+.gacha-pull-button:active,
+.buff-button:active,
+.inventory-tab:active,
+.enter-dungeon-button:active {
+    transform: translateY(0);
+    box-shadow: 0 0 5px rgba(0, 247, 255, 0.4),
+                inset 0 0 5px rgba(0, 247, 255, 0.2);
+}
+
+/* Disabled state */
+.cyberpunk-button:disabled,
+.menu-button:disabled,
+.gacha-pull-button:disabled,
+.buff-button:disabled,
+.inventory-tab:disabled,
+.enter-dungeon-button:disabled {
+    opacity: 0.7;
+    background: linear-gradient(135deg, rgba(40, 40, 50, 0.9), rgba(30, 30, 40, 0.9));
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.3);
+    text-shadow: none;
+    cursor: not-allowed;
+    transform: translateY(0);
+}
+
+.cyberpunk-button:disabled::before,
+.menu-button:disabled::before,
+.gacha-pull-button:disabled::before,
+.buff-button:disabled::before,
+.inventory-tab:disabled::before,
+.enter-dungeon-button:disabled::before,
+.cyberpunk-button:disabled::after,
+.menu-button:disabled::after,
+.gacha-pull-button:disabled::after,
+.buff-button:disabled::after,
+.inventory-tab:disabled::after,
+.enter-dungeon-button:disabled::after {
+    display: none;
+}
+
+/* Buff button specific styles */
+.buff-button {
+    background: linear-gradient(135deg, rgba(0, 40, 20, 0.9), rgba(0, 80, 40, 0.9));
+    box-shadow: 0 0 10px rgba(0, 255, 128, 0.4), 
+                inset 0 0 5px rgba(0, 255, 128, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 128, 0.8);
+}
+
+.buff-button:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.6),
+                inset 0 0 10px rgba(0, 255, 128, 0.4);
+    background: linear-gradient(135deg, rgba(0, 60, 30, 0.9), rgba(0, 100, 50, 0.9));
+    text-shadow: 0 0 8px rgba(0, 255, 128, 1);
+}
+
+/* Specific buff button types */
+#damage-buff {
+    background: linear-gradient(135deg, rgba(40, 0, 0, 0.9), rgba(80, 20, 0, 0.9));
+    box-shadow: 0 0 10px rgba(255, 50, 50, 0.4), 
+                inset 0 0 5px rgba(255, 50, 50, 0.2);
+    text-shadow: 0 0 5px rgba(255, 50, 50, 0.8);
+}
+
+#damage-buff:hover {
+    box-shadow: 0 0 15px rgba(255, 50, 50, 0.6),
+                inset 0 0 10px rgba(255, 50, 50, 0.4);
+    background: linear-gradient(135deg, rgba(60, 0, 0, 0.9), rgba(100, 30, 0, 0.9));
+    text-shadow: 0 0 8px rgba(255, 50, 50, 1);
+}
+
+#speed-buff {
+    background: linear-gradient(135deg, rgba(0, 40, 40, 0.9), rgba(0, 80, 80, 0.9));
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4), 
+                inset 0 0 5px rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+#speed-buff:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6),
+                inset 0 0 10px rgba(0, 255, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 60, 60, 0.9), rgba(0, 100, 100, 0.9));
+    text-shadow: 0 0 8px rgba(0, 255, 255, 1);
+}
+
+/* Max stack buff buttons */
+.buff-button.max-stack {
+    background: linear-gradient(135deg, rgba(60, 60, 0, 0.9), rgba(100, 100, 0, 0.9));
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.4), 
+                inset 0 0 5px rgba(255, 255, 0, 0.2);
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.8);
+}
+
+/* Menu buttons */
+.menu-button {
+    background: linear-gradient(135deg, rgba(0, 20, 60, 0.9), rgba(0, 40, 100, 0.9));
+    box-shadow: 0 0 10px rgba(0, 100, 255, 0.4), 
+                inset 0 0 5px rgba(0, 100, 255, 0.2);
+    text-shadow: 0 0 5px rgba(0, 100, 255, 0.8);
+}
+
+.menu-button:hover {
+    box-shadow: 0 0 15px rgba(0, 100, 255, 0.6),
+                inset 0 0 10px rgba(0, 100, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 30, 80, 0.9), rgba(0, 50, 120, 0.9));
+    text-shadow: 0 0 8px rgba(0, 100, 255, 1);
+}
+
+/* Gacha pull buttons */
+.gacha-pull-button {
+    background: linear-gradient(135deg, rgba(40, 0, 60, 0.9), rgba(60, 0, 100, 0.9));
+    box-shadow: 0 0 10px rgba(200, 0, 255, 0.4), 
+                inset 0 0 5px rgba(200, 0, 255, 0.2);
+    text-shadow: 0 0 5px rgba(200, 0, 255, 0.8);
+}
+
+.gacha-pull-button:hover {
+    box-shadow: 0 0 15px rgba(200, 0, 255, 0.6),
+                inset 0 0 10px rgba(200, 0, 255, 0.4);
+    background: linear-gradient(135deg, rgba(60, 0, 80, 0.9), rgba(80, 0, 120, 0.9));
+    text-shadow: 0 0 8px rgba(200, 0, 255, 1);
+}
+
+/* Inventory tabs */
+.inventory-tab {
+    background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(40, 40, 60, 0.9));
+    border-radius: 4px 4px 0 0;
+    margin-right: 2px;
+    box-shadow: 0 0 10px rgba(150, 150, 255, 0.3), 
+                inset 0 0 5px rgba(150, 150, 255, 0.1);
+}
+
+.inventory-tab:hover,
+.inventory-tab.active {
+    background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(50, 50, 80, 0.9));
+    box-shadow: 0 0 15px rgba(150, 150, 255, 0.5), 
+                inset 0 0 5px rgba(150, 150, 255, 0.3);
+}
+
+/* Dungeon enter button */
+.enter-dungeon-button {
+    background: linear-gradient(135deg, rgba(0, 60, 30, 0.9), rgba(0, 100, 50, 0.9));
+    box-shadow: 0 0 10px rgba(0, 255, 128, 0.4), 
+                inset 0 0 5px rgba(0, 255, 128, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 128, 0.8);
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.enter-dungeon-button:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.6),
+                inset 0 0 10px rgba(0, 255, 128, 0.4);
+    background: linear-gradient(135deg, rgba(0, 80, 40, 0.9), rgba(0, 120, 60, 0.9));
+}
+
+/* Scanline effect animation for buttons */
+@keyframes scanline {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+.cyberpunk-button,
+.menu-button,
+.gacha-pull-button,
+.buff-button,
+.inventory-tab,
+.enter-dungeon-button {
+    position: relative;
+}
+
+.cyberpunk-button::before,
+.menu-button::before,
+.gacha-pull-button::before,
+.buff-button::before,
+.inventory-tab::before,
+.enter-dungeon-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        transparent 50%,
+        rgba(0, 247, 255, 0.1) 50%,
+        transparent 51%
+    );
+    background-size: 100% 8px;
+    opacity: 0;
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+    z-index: 0;
+}
+
+.cyberpunk-button:hover::before,
+.menu-button:hover::before,
+.gacha-pull-button:hover::before,
+.buff-button:hover::before,
+.inventory-tab:hover::before,
+.enter-dungeon-button:hover::before {
+    opacity: 1;
+}
+
+/* Button content positioning */
+.cyberpunk-button > *,
+.menu-button > *,
+.gacha-pull-button > *,
+.buff-button > *,
+.inventory-tab > *,
+.enter-dungeon-button > * {
+    position: relative;
+    z-index: 2;
+}

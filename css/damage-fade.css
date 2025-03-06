@@ -1,0 +1,79 @@
+/**
+ * CSS animations for damage displays and effects
+ * Improves performance by using CSS animations instead of JavaScript
+ */
+
+@keyframes damage-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+/* Item drop animation */
+.item-drop {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+    pointer-events: none;
+    animation: item-drop-bounce 1.5s ease-out forwards;
+}
+
+@keyframes item-drop-bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-10px);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1.2) translateY(5px);
+    }
+    40% {
+        transform: scale(1) translateY(-5px);
+    }
+    60% {
+        transform: scale(1) translateY(0);
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Add monster-specific optimizations */
+.monster-sprite {
+    position: absolute;
+    background-repeat: no-repeat;
+    transform: translate(0, 0); /* Use transform instead of left/top for better performance */
+    will-change: transform; /* Hint to the browser that this element will animate */
+    z-index: 3;
+    transition: opacity 0.8s ease-out; /* For death fade-out effect */
+}
+
+.damage-gauge {
+    animation-fill-mode: forwards; /* Ensure animation ends in final state */
+}
+
+/* Monster health bar optimization */
+.monster-health-bar {
+    transition: width 0.2s ease-out, background 0.2s ease;
+}

@@ -1,0 +1,477 @@
+/* 
+ * Profile Dashboard Styles
+ * Cyberpunk-themed user profile and wallet information display
+ */
+
+/* Dashboard Button in Menu */
+#profile-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+#profile-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00f6ff, #ff00ff);
+    z-index: -1;
+    animation: border-glow 3s infinite alternate;
+    border-radius: 4px;
+    opacity: 0.6;
+}
+
+#profile-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    transform: skewX(-15deg);
+}
+
+#profile-button:hover::after {
+    left: 150%;
+    transition: 0.7s;
+}
+
+/* Profile Dashboard Modal */
+#profile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.profile-modal-content {
+    background-color: #121212;
+    border: 2px solid #00ffff;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 550px;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-modal-content::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, transparent 50%, rgba(0, 255, 255, 0.03) 50%),
+        linear-gradient(rgba(0, 255, 255, 0.02) 50%, transparent 50%);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+
+.profile-modal-header {
+    background-color: #000;
+    padding: 15px;
+    border-bottom: 2px solid #00ffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-modal-header h2 {
+    margin: 0;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-modal-header h2::before {
+    content: '//';
+    margin-right: 8px;
+    color: #ff00ff;
+    font-weight: bold;
+}
+
+.profile-modal-body {
+    padding: 20px;
+    position: relative;
+}
+
+.close-profile-modal {
+    color: #ff00ff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.3s;
+}
+
+.close-profile-modal:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #ff00ff;
+}
+
+/* User Identity Section */
+.user-identity {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ffff;
+    border-radius: 3px;
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-identity::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    animation: line-scan 3s infinite;
+}
+
+.address-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.address-label {
+    color: #666;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+
+.wallet-address {
+    color: #00ffff;
+    font-family: 'Share Tech Mono', monospace;
+    background-color: rgba(0, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 3px;
+    border-left: 3px solid #00ffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.wallet-address.guest {
+    color: #ff00ff;
+    border-left: 3px solid #ff00ff;
+    background-color: rgba(255, 0, 255, 0.1);
+}
+
+.login-status {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-indicator.connected {
+    background-color: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.guest {
+    background-color: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+.status-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* Token Balances Section */
+.token-balances {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ffff;
+    border-radius: 3px;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.token-balances::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 90%, rgba(0, 255, 255, 0.1) 150%);
+    z-index: -1;
+}
+
+.balance-header {
+    margin: 0 0 15px 0;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.balance-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #00ffff;
+}
+
+.balance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.balance-item:last-child {
+    border-bottom: none;
+}
+
+.token-info {
+    display: flex;
+    align-items: center;
+}
+
+.token-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.token-icon.ada::before {
+    content: '₳';
+    color: #0088cc;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 136, 204, 0.2);
+    border-radius: 50%;
+    animation: token-pulse 3s infinite alternate;
+}
+
+.token-icon.custom::before {
+    content: '₮';
+    color: #cf41a8;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(207, 65, 168, 0.2);
+    border-radius: 50%;
+    animation: token-pulse 3s infinite alternate;
+}
+
+.token-name {
+    font-family: 'Share Tech Mono', monospace;
+    color: #fff;
+}
+
+.token-amount {
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ffff;
+    font-weight: bold;
+    padding: 3px 8px;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 3px;
+    min-width: 80px;
+    text-align: right;
+}
+
+.token-amount.ada {
+    color: #0088cc;
+    background: rgba(0, 136, 204, 0.1);
+}
+
+.token-amount.custom {
+    color: #cf41a8;
+    background: rgba(207, 65, 168, 0.1);
+}
+
+.token-amount-change {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    color: #00ff00;
+}
+
+.token-amount-change.negative {
+    color: #ff0000;
+}
+
+.token-policy-id {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 2px;
+    display: block;
+}
+
+.token-policy-container {
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.token-policy-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.token-policy-field {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.token-policy-field input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ffff;
+    font-family: 'Share Tech Mono', monospace;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.token-policy-field button {
+    background: rgba(0, 255, 255, 0.2);
+    border: none;
+    color: #00ffff;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.3s;
+}
+
+.token-policy-field button:hover {
+    background: rgba(0, 255, 255, 0.4);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.loading::after {
+    content: '...';
+    position: absolute;
+    animation: loading-dots 1.5s infinite;
+}
+
+/* Animations */
+@keyframes border-glow {
+    0% {
+        filter: blur(3px);
+        opacity: 0.5;
+    }
+    100% {
+        filter: blur(1px);
+        opacity: 0.8;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes token-pulse {
+    0% {
+        box-shadow: 0 0 5px currentColor;
+    }
+    100% {
+        box-shadow: 0 0 10px currentColor;
+    }
+}
+
+@keyframes line-scan {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes loading-dots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+    100% { content: '.'; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-modal-content {
+        width: 95%;
+    }
+    
+    .profile-modal-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .wallet-address {
+        font-size: 0.8rem;
+    }
+}
